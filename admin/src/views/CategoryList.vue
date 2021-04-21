@@ -27,7 +27,7 @@ export default {
   },
   methods: {
     async fetch () {
-      const res = await this.$http.get('categories')
+      const res = await this.$http.get('rest/categories')
       this.items = res.data
     },
     async remove (row) {
@@ -36,7 +36,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(async () => {
-        const res = this.$http.delete(`categories/${row._id}`)
+        const res = this.$http.delete(`rest/categories/${row._id}`)
         this.$message({
           type: 'success',
           message: '删除成功!'
