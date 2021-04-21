@@ -17,7 +17,8 @@ module.exports = app => {
     })
   })
   router.get('/categories', async (req, res) => {
-    const items = await Category.find().limit(10)
+    // 不加populate('parent)返回的是parent的id值 加上之后返回parent对象 可以从network看
+    const items = await Category.find().populate('parent').limit(10) 
     res.send(items)
   })
   router.get('/categories/:id', async (req, res) => {
