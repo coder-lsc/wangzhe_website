@@ -18,7 +18,6 @@ module.exports = app => {
     })
   })
   router.get('/', async (req, res) => {
-    
     // 不加populate('parent)返回的是parent的id值 加上之后返回parent对象 可以从network看
     // const items = await req.Model.find().populate('parent').limit(10) 
     // 为了实现通用性 改为以下写法
