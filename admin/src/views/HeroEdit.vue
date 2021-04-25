@@ -1,8 +1,8 @@
 <template>
   <div class="about">
-    <h1>{{id ? '编辑' : '新建'}}物品  </h1>
+    <h1>{{id ? '编辑' : '新建'}}英雄  </h1>
     <el-form label-width="120px" @submit.native.prevent="save">
-      <!-- <el-form-item label="上级物品">
+      <!-- <el-form-item label="上级英雄">
         <el-select v-model="model.parent">
           <el-option v-for="item in parents" :key="item._id" :label="item.name" :value="item._id"></el-option>
         </el-select>
@@ -10,16 +10,16 @@
       <el-form-item label="名称">
         <el-input v-model="model.name"></el-input>
       </el-form-item>
-      <el-form-item label="图标">
+      <el-form-item label="头像">
         <el-upload
           class="avatar-uploader"
           :action="$http.defaults.baseURL + '/upload'"
           :show-file-list="false"
           :on-success="afterUpload">
-          <img v-if="model.icon" :src="model.icon" class="avatar">
+          <img v-if="model.avatar" :src="model.avatar" class="avatar">
           <i v-else class="el-icon-plus avatar-uploader-icon" style="line-height: 178px"></i>
         </el-upload>
-        <el-input v-model="model.icon"></el-input>
+        <el-input v-model="model.avatar"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" native-type="submit">保存</el-button>
@@ -35,28 +35,32 @@ export default {
   },
   data () {
     return {
-      model: {},
+      model: {
+        name: '',
+        avatar: ''
+      },
     }
   },
   methods: {
     afterUpload (res) {
-      this.$set(this.model, 'icon', res.url)
+      // this.$set(this.model, 'avatar', res.url)
+      this.model.avatar = res.url
     },
     async save () { // 提交数据
       let res
-      if (this.id) { // “编辑物品”界面 提交修改数据
-        res = await this.$http.put(`rest/items/${this.id}`, this.model)
-      } else { // “新建物品”界面 第一次提交数据
-        res = await this.$http.post('rest/items', this.model)
+      if (this.id) { // “编辑英雄”界面 提交修改数据
+        res = await this.$http.put(`rest/heroes/${this.id}`, this.model)
+      } else { // “新建英雄”界面 第一次提交数据
+        res = await this.$http.post('rest/heroes', this.model)
       }
-      this.$router.push('/items/list')
+      this.$router.push('/heroes/list')
       this.$message({
         type: 'success',
         message: '保存成功'
       })
     },
     async fetch () { // 拿到修改前数据
-      const res = await this.$http.get(`rest/items/${this.id}`)
+      const res = await this.$http.get(`rest/heroes/${this.id}`)
       this.model = res.data
     }
   },
