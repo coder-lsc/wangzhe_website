@@ -10,6 +10,9 @@
       <el-form-item label="名称">
         <el-input v-model="model.name"></el-input>
       </el-form-item>
+      <el-form-item label="称号">
+        <el-input v-model="model.title"></el-input>
+      </el-form-item>
       <el-form-item label="头像">
         <el-upload
           class="avatar-uploader"
@@ -20,6 +23,46 @@
           <i v-else class="el-icon-plus avatar-uploader-icon" style="line-height: 178px"></i>
         </el-upload>
         <el-input v-model="model.avatar"></el-input>
+      </el-form-item>
+      <el-form-item label="类型">
+        <el-select v-model="model.categories" multiple>
+          <el-option v-for="item of categories" :key="item._id"
+          :label="item.name" :value="item._id"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="难度">
+        <el-rate style="margin-top:0 6rem" :max=9 show-score v-model="model.scores.difficult"></el-rate>
+      </el-form-item>
+      <el-form-item label="技能">
+        <el-rate style="margin-top:0 6rem" :max=9 show-score v-model="model.scores.skills"></el-rate>
+      </el-form-item>
+      <el-form-item label="攻击">
+        <el-rate style="margin-top:0 6rem" :max=9 show-score v-model="model.scores.attack"></el-rate>
+      </el-form-item>
+      <el-form-item label="生存">
+        <el-rate style="margin-top:0 6rem" :max=9 show-score v-model="model.scores.survive"></el-rate>
+      </el-form-item>
+
+      <el-form-item label="顺风出装">
+        <el-select v-model="model.items1" multiple>
+          <el-option v-for="item of items" :key="item._id"
+          :label="item.name" :value="item._id"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="逆风出装">
+        <el-select v-model="model.items2" multiple>
+          <el-option v-for="item of items" :key="item._id"
+          :label="item.name" :value="item._id"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="使用技巧">
+        <el-input type="textarea" v-model="model.usageTips"></el-input>
+      </el-form-item>
+      <el-form-item label="对线技巧">
+        <el-input type="textarea" v-model="model.battleTips"></el-input>
+      </el-form-item>
+      <el-form-item label="团战思路">
+        <el-input type="textarea" v-model="model.teamTips"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" native-type="submit">保存</el-button>
@@ -37,8 +80,17 @@ export default {
     return {
       model: {
         name: '',
-        avatar: ''
+        title: '',
+        avatar: '',
+        scores:{  // 多层级必须要提前定义
+          difficult: 0  // 这里不定义的话 会导致el-rate 默认为undefined 不是number
+        },
+        usageTips: '',
+        battleTips: '',
+        teamTips: ''
       },
+      categories: [],
+      items: []
     }
   },
   methods: {
@@ -61,10 +113,20 @@ export default {
     },
     async fetch () { // 拿到修改前数据
       const res = await this.$http.get(`rest/heroes/${this.id}`)
-      this.model = res.data
+      this.model = Object.assign(this.model, res.data) // 防止model.scores被覆盖掉
+    },
+    async fetchCategories () {
+      const res = await this.$http.get('rest/categories')
+      this.categories = res.data
+    },
+    async fetchItems () {
+      const res = await this.$http.get('rest/items')
+      this.items = res.data
     }
   },
   created () { // 拿到修改前数据
+    this.fetchItems()
+    this.fetchCategories()
     this.id && this.fetch()
   }
 }
