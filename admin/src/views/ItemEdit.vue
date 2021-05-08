@@ -17,7 +17,7 @@
           :show-file-list="false"
           :on-success="afterUpload">
           <img v-if="model.icon" :src="model.icon" class="avatar">
-          <i v-else class="el-icon-plus avatar-uploader-icon" style="line-height: 178px"></i>
+          <i v-else class="el-icon-plus avatar-uploader-icon" style="line-height: 80px"></i>
         </el-upload>
         <el-input v-model="model.icon"></el-input>
       </el-form-item>
