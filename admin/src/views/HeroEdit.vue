@@ -74,7 +74,7 @@
                   class="avatar-uploader"
                   :action="$http.defaults.baseURL + '/upload'"
                   :show-file-list="false"
-                  :on-success="$set(item, 'icon', res.url)">
+                  :on-success="res => $set(item, 'icon', res.url)">
                   <img v-if="item.icon" :src="item.icon" class="avatar">
                   <i v-else class="el-icon-plus avatar-uploader-icon" style="line-height: 5rem"></i>
                 </el-upload>
@@ -84,6 +84,11 @@
               </el-form-item>
               <el-form-item label="小提示">
                 <el-input type="textarea" v-model="item.tips"></el-input>
+              </el-form-item>
+              <el-form-item>
+                <el-button size="small" type="danger"
+                @click="model.skills.splice(i, 1)"
+                >删除</el-button>
               </el-form-item>
             </el-col>
           </el-row>
