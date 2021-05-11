@@ -13,10 +13,12 @@ import AdEdit from '../views/AdEdit.vue'
 import AdList from '../views/AdList.vue'
 import AdminUserEdit from '../views/AdminUserEdit.vue'
 import AdminUserList from '../views/AdminUserList.vue'
+import Login from '../views/Login.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
+  { path: '/login', name: 'login', component: Login },
   {
     path: '/',
     name: 'main',
