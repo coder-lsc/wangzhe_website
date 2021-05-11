@@ -18,7 +18,7 @@ import Login from '../views/Login.vue'
 Vue.use(VueRouter)
 
 const routes = [
-  { path: '/login', name: 'login', component: Login },
+  { path: '/login', name: 'login', component: Login, meta: { isPublic: true } },
   {
     path: '/',
     name: 'main',
@@ -49,6 +49,13 @@ const routes = [
 const router = new VueRouter({
   // mode: 'history',
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  if(!to.meta.isPublic && !localStorage.token) {
+    return next('/login')
+  }
+  next()
 })
 
 export default router
