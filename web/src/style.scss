@@ -1,0 +1,101 @@
+// reset
+
+* {
+  // 不用默认盒模型的意义是 有时设置宽度为100% 再设置padding 会把盒子撑大 导致网页可以左右滑动
+  box-sizing: border-box;
+  outline: none;
+}
+html {
+  // rem就是根据html的字体大小
+  font-size: 13px;
+}
+body {
+  // body有默认边距margin
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.2em;
+  background: #f1f1f1;
+}
+a {
+  color: #999;
+}
+
+// colors
+$colors: (
+  "primary": #db9e3f,
+  "white": #fff,
+  "light": #f9f9f9,
+  "grey": #999,
+  "dark-1": #343440,
+  "dark": #222,
+  "black": #000,
+);
+@each $colorKey,$color in $colors {
+  .text-#{$colorKey} {
+    color: $color
+  }
+  .bg-#{$colorKey} {
+    color: $color
+  }
+}
+
+
+// text align
+@each $var in (left, center, right) {
+  .text-#{$var} {
+    text-align: $var;
+  }
+}
+
+// font size
+$base-font-size: 1rem; // 13px
+$font-sizes: (
+  // px -> rem 转换快捷键alt+z 更改默认rem标准值alt+s
+  xs: 0.7692rem, // 10px
+  sm: 0.9231rem, // 12px 
+  md: 1rem, // 13px
+  lg: 1.0769rem, // 14px
+  xl: 1.2308rem // 16px
+);
+@each $sizeKey, $size in $font-sizes {
+  .fs-#{$sizeKey} {
+    font-size: $size;
+  }
+}
+
+// flex
+.d-flex {
+  display: flex;
+}
+.flex-column {
+  flex-direction: column;
+}
+// 主轴
+$flex-jc: (
+  start: flex-start,
+  end: flex-end,
+  center: center,
+  between: space-between,
+  around: space-around
+);
+@each $key, $value in $flex-jc {
+  .jc-#{$key} {
+    justify-content: $value;
+  }
+}
+// 交叉轴
+$flex-ai: (
+  start: flex-start,
+  end: flex-end,
+  center: center,
+  stretch: stretch
+);
+@each $key, $value in $flex-ai {
+  .ai-#{$key} {
+    align-items: $value;
+  }
+}
+
+.flex-1 {
+  flex: 1
+}
