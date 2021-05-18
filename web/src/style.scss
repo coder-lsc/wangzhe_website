@@ -35,7 +35,7 @@ $colors: (
     color: $color
   }
   .bg-#{$colorKey} {
-    color: $color
+    background-color: $color
   }
 }
 
