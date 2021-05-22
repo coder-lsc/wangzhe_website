@@ -11,6 +11,8 @@ import './assets/iconfont/iconfont.css'
 import './assets/scss/style.scss'
 import Card from './components/Card.vue'
 Vue.component('m-card', Card) // 全局注册
+import ListCard from './components/ListCard.vue'
+Vue.component('m-list-card', ListCard) // 全局注册
 
 new Vue({
   router,

@@ -29,53 +29,19 @@
     </div>
     <!-- end of nav-icons  -->
 
-    <m-card icon="menu1" title="新闻资讯">
-      <div class="card-body pt-2">
-          <div class="nav jc-between">
-            <div class="nav-item active">
-              <div class="nav-link">热门</div>
-            </div>
-            <div class="nav-item">
-              <div class="nav-link">新闻</div>
-            </div>
-            <div class="nav-item">
-              <div class="nav-link">新闻</div>
-            </div>
-            <div class="nav-item">
-              <div class="nav-link">新闻</div>
-            </div>
-            <div class="nav-item">
-              <div class="nav-link">新闻</div>
-            </div>
-          </div>
-          <div class="pt-3">
-            <swiper >
-              <swiper-slide v-for="n in 5" :key="n">
-                <div class="py-2" v-for="n in 5" :key="n">
-                  <span>[新闻]</span>
-                  <span>|</span>
-                  <span>峡谷甜蜜520，周瑜小乔最新情侣皮肤送不停</span>
-                  <span>05/21</span>
-                </div>
-              </swiper-slide>
-            </swiper>
-          </div>
-      </div>
-    </m-card>
+  
 
-    
-    <p>aaaa</p>
-    <p>aaaa</p>
-    <p>aaaa</p>
-    <p>aaaa</p>
-    <p>aaaa</p>
-    <p>aaaa</p>
-    <p>aaaa</p>
-    <p>aaaa</p>
-    <p>aaaa</p>
-    <p>aaaa</p>
-    <p>aaaa</p>
-    <i class="iconfont icon-menu1"></i>
+    <m-list-card icon="menu1" title="新闻资讯" :categories="newsCats">
+      <template #items="{category}">
+        <div class="py-2" v-for="(news, i) in category.newsList" :key="i">
+          <span>{{news.categoryName}}</span>
+          <span>|</span>
+          <span>{{news.title}}</span>
+          <span>{{news.date}}</span>
+        </div>
+      </template>
+    </m-list-card>
+  
   </div>
 </template>
 
@@ -88,7 +54,59 @@ export default {
             el: '.pagination-home'
           },
           // Some Swiper option/callback...
-        }
+        },
+        newsCats: [
+          {
+            name: '热门',
+            newsList: new Array(5).fill({}).map(item => (
+              {
+                categoryName: '公告',
+                title: '峡谷甜蜜520，周瑜小乔最新情侣皮肤送不停',
+                date: '05/21'
+              }
+            ))
+          },
+          {
+            name: '公告',
+            newsList: new Array(5).fill({}).map(item => (
+              {
+                categoryName: '公告',
+                title: '峡谷甜蜜521，周瑜小乔最新情侣皮肤送不停',
+                date: '05/21'
+              }
+            ))
+          },
+          {
+            name: '热门',
+            newsList: new Array(5).fill({}).map(item => (
+              {
+                categoryName: '公告',
+                title: '峡谷甜蜜520，周瑜小乔最新情侣皮肤送不停',
+                date: '05/21'
+              }
+            ))
+          },
+          {
+            name: '热门',
+            newsList: new Array(5).fill({}).map(item => (
+              {
+                categoryName: '公告',
+                title: '峡谷甜蜜520，周瑜小乔最新情侣皮肤送不停',
+                date: '05/21'
+              }
+            ))
+          },
+          {
+            name: '热门',
+            newsList: new Array(5).fill({}).map(item => (
+              {
+                categoryName: '公告',
+                title: '峡谷甜蜜520，周瑜小乔最新情侣皮肤送不停',
+                date: '05/21'
+              }
+            ))
+          },
+        ]
       }
     },
 }
