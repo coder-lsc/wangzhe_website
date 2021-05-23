@@ -35,7 +35,7 @@ module.exports = app => {
     if (req.Model.modelName === 'Category') { // 上级分类 对应的每个数据创建时的上级分类parent
       queryOptions.populate = 'parent'
     }
-    const items = await req.Model.find().setOptions(queryOptions).limit(10)  // 
+    const items = await req.Model.find().setOptions(queryOptions).limit(100)  // 
     res.send(items)
   })
   
