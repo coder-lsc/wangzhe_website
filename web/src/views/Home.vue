@@ -5,10 +5,10 @@
         <img class="w-100" src="../assets/images/210794580bb9303653804bb7b482f2a4.jpeg">
       </swiper-slide>
       <swiper-slide>
-        <img class="w-100" src="../assets/images/210794580bb9303653804bb7b482f2a4.jpeg">
+        <img class="w-100" src="../assets/images/b9905b35bb0afa9050d9ddbe04d82d29.jpeg">
       </swiper-slide>
       <swiper-slide>
-        <img class="w-100" src="../assets/images/210794580bb9303653804bb7b482f2a4.jpeg">
+        <img class="w-100" src="../assets/images/ddc8c8922cbb694dfb73c86bb03fce22.jpeg">
       </swiper-slide>
       <div class="swiper-pagination pagination-home text-right px-3 pb-2" 
       slot="pagination"></div>
@@ -17,14 +17,15 @@
     <div class="nav-icons bg-white mt-3 text-center pt-3 text-dark-1">
       <div class="d-flex flex-wrap">
         <div class="nav-item mb-3"
-          v-for="n in 10" :key="n">
-          <i class="sprite sprite-news"></i>
+          v-for="n in 4" :key="n">
+          <i class="sprite sprite-news1"></i>
           <div class="py-2">爆料站</div>
         </div>
-      </div>
-      <div class="bg-light py-2 fs-sm">
-        <i class="sprite sprite-arrow mr-1"></i>
-        <span>收起</span>
+        <div class="nav-item mb-3"
+          v-for="n in 6" :key="n+4">
+          <i class="sprite sprite-news2"></i>
+          <div class="py-2">故事站</div>
+        </div>
       </div>
     </div>
     <!-- end of nav-icons  -->

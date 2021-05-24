@@ -2,41 +2,62 @@
   <div class="about">
     <h1>{{id ? '编辑' : '新建'}}英雄  </h1>
     <el-form label-width="120px" @submit.native.prevent="save">
-      <el-tabs type="border-card" value="skills">
-        <el-tab-pane label="基础信息">
+      <el-tabs type="border-card" value="basic">
+        <el-tab-pane label="基础信息" name="basic">
+
           <el-form-item label="名称">
             <el-input v-model="model.name"></el-input>
           </el-form-item>
+
           <el-form-item label="称号">
             <el-input v-model="model.title"></el-input>
           </el-form-item>
+
           <el-form-item label="头像">
             <el-upload
               class="avatar-uploader"
               :action="uploadUrl"
               :headers="getAuthHeaders()"
               :show-file-list="false"
-              :on-success="afterUpload">
+              :on-success="res => $set(model, 'avatar', res.url)">
               <img v-if="model.avatar" :src="model.avatar" class="avatar">
               <i v-else class="el-icon-plus avatar-uploader-icon" style="line-height: 5rem"></i>
             </el-upload>
             <el-input v-model="model.avatar"></el-input>
           </el-form-item>
+
+          <el-form-item label="Banner背景图">
+            <el-upload
+              class="avatar-uploader"
+              :action="uploadUrl"
+              :headers="getAuthHeaders()"
+              :show-file-list="false"
+              :on-success="res => $set(model, 'banner', res.url)">
+              <img v-if="model.banner" :src="model.banner" class="avatar">
+              <i v-else class="el-icon-plus avatar-uploader-icon" style="line-height: 5rem"></i>
+            </el-upload>
+            <el-input v-model="model.banner"></el-input>
+          </el-form-item>
+
           <el-form-item label="类型">
             <el-select v-model="model.categories" multiple>
               <el-option v-for="item of categories" :key="item._id"
               :label="item.name" :value="item._id"></el-option>
             </el-select>
           </el-form-item>
+
           <el-form-item label="难度">
             <el-rate style="margin-top:0 6rem" :max=9 show-score v-model="model.scores.difficult"></el-rate>
           </el-form-item>
+
           <el-form-item label="技能">
             <el-rate style="margin-top:0 6rem" :max=9 show-score v-model="model.scores.skills"></el-rate>
           </el-form-item>
+
           <el-form-item label="攻击">
             <el-rate style="margin-top:0 6rem" :max=9 show-score v-model="model.scores.attack"></el-rate>
           </el-form-item>
+
           <el-form-item label="生存">
             <el-rate style="margin-top:0 6rem" :max=9 show-score v-model="model.scores.survive"></el-rate>
           </el-form-item>
@@ -47,18 +68,22 @@
               :label="item.name" :value="item._id"></el-option>
             </el-select>
           </el-form-item>
+
           <el-form-item label="逆风出装">
             <el-select v-model="model.items2" multiple>
               <el-option v-for="item of items" :key="item._id"
               :label="item.name" :value="item._id"></el-option>
             </el-select>
           </el-form-item>
+
           <el-form-item label="使用技巧">
             <el-input type="textarea" v-model="model.usageTips"></el-input>
           </el-form-item>
+
           <el-form-item label="对线技巧">
             <el-input type="textarea" v-model="model.battleTips"></el-input>
           </el-form-item>
+
           <el-form-item label="团战思路">
             <el-input type="textarea" v-model="model.teamTips"></el-input>
           </el-form-item>
@@ -81,9 +106,19 @@
                   <i v-else class="el-icon-plus avatar-uploader-icon" style="line-height: 5rem"></i>
                 </el-upload>
               </el-form-item>
+
+              <el-form-item label="冷却值">
+                <el-input v-model="item.delay"></el-input>
+              </el-form-item>
+
+              <el-form-item label="消耗">
+                <el-input v-model="item.cost"></el-input>
+              </el-form-item>
+
               <el-form-item label="描述">
                 <el-input type="textarea" v-model="item.description"></el-input>
               </el-form-item>
+
               <el-form-item label="小提示">
                 <el-input type="textarea" v-model="item.tips"></el-input>
               </el-form-item>
@@ -128,10 +163,6 @@ export default {
     }
   },
   methods: {
-    afterUpload (res) {
-      // this.$set(this.model, 'avatar', res.url)
-      this.model.avatar = res.url
-    },
     async save () { // 提交数据
       let res
       if (this.id) { // “编辑英雄”界面 提交修改数据

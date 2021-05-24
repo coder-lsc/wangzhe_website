@@ -94,7 +94,7 @@ module.exports = app => {
 
   // 
   router.get('/heroes/:id', async (req, res) => {
-    const data = await Hero.findById(req.params.id).lean()
+    const data = await Hero.findById(req.params.id).populate('categories items1 items2').lean()
     res.send(data)
   })
 
